@@ -4,6 +4,10 @@
 
 package frc.robot;
 
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.math.util.Units;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
@@ -73,5 +77,60 @@ public final class Constants {
     public static final int L3_HEIGHT = 0;
     public static final int L4_HEIGHT = 0;
     public static final int PROCESSOR_HEIGHT = 0;
+  }
+  public static class LimelightConstants {
+    //limelight field distance constants
+    public static final double LIMELIGHT_HEIGHT_TO_REEF = 0;
+    public static final double LIMELIGHT_HEIGHT_TO_PROCESSOR = 0;
+    public static final double LIMELIGHT_HEIGHT_TO_BARGE = 0;
+    public static final double LIMELIGHT_HEIGHT_TO_CORAL_STATION = 0;
+
+    //limelight field distance constants
+    public static final double LIMELIGHT_DISTANCE_TO_REEF = 0;
+    public static final double LIMELIGHT_DISTANCE_TO_PROCESSOR = 0;
+    public static final double LIMELIGHT_DISTANCE_TO_BARGE = 0;
+    public static final double LIMELIGHT_DISTANCE_TO_CORAL_STATION = 0;
+
+    //limelight name constants
+    public static final String LIMELIGHT_NAME = "limelight";
+  }
+
+  public static class DriveConstants {
+
+  // Drive Motor IDs
+  public static int FRONT_LEFT_DRIVE_ID;
+  public static int FRONT_RIGHT_DRIVE_ID;
+  public static int BACK_LEFT_DRIVE_ID;
+  public static int BACK_RIGHT_DRIVE_ID;
+
+  // Rotate Motor IDs
+  public static int FRONT_LEFT_ROTATE_ID;
+  public static int FRONT_RIGHT_ROTATE_ID;
+  public static int BACK_LEFT_ROTATE_ID;
+  public static int BACK_RIGHT_ROTATE_ID;
+
+  // Drive PID Values 
+  public static double DRIVE_P_VALUE;
+  public static double DRIVE_I_VALUE;
+  public static double DRIVE_D_VALUE;
+  public static double DRIVE_FF_VALUE;
+
+  // Rotate PID Values
+  public static double ROTATE_P_VALUE;
+  public static double ROTATE_I_VALUE;
+  public static double ROTATE_D_VALUE;
+  public static double ROTATE_FF_VALUE;
+
+  // Factors
+  public static double DRIVE_POSITION_CONVERSION;
+  public static double DRIVE_VELOCITY_CONVERSION;
+
+  public static double ROTATE_POSITION_CONVERSION;
+  public static double ROTATE_VELOCITY_CONVERSION;
+
+  public static final double MAX_DRIVE_SPEED = Units.feetToMeters(15.1);
+
+  public static final double MAX_ROTATE_SPEED = 4 * Math.PI;
+
   }
 }
