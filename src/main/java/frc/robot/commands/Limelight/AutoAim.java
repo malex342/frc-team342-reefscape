@@ -26,6 +26,7 @@ public class AutoAim extends Command{
     addRequirements(swerve);
 
     rotateController = new PIDController(
+    //placeholder pid values, tune these pls mischa :praying hands emoji:
       .01, 
       .01, 
       .01
