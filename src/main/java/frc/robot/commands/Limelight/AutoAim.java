@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.math.kinematics.ChassisSpeeds;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import frc.robot.LimelightHelpers;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.Constants;
 import static frc.robot.Constants.DriveConstants.*;
@@ -14,6 +15,7 @@ import com.studica.frc.AHRS.NavXComType;
 
 public class AutoAim extends Command{
   private SwerveDrive swerve;
+  private Limelight limelight;
   private PIDController rotateController;
 
   private double start;
@@ -24,8 +26,8 @@ public class AutoAim extends Command{
 
   public AHRS gyro;
 
-  public AutoAim(double tx, SwerveDrive swerve){
-    this.tx = tx;
+  public AutoAim(Limelight limelight, SwerveDrive swerve){
+    this.limelight = limelight;
     this.swerve = swerve;
     addRequirements(swerve);
 
