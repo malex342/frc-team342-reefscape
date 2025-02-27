@@ -13,7 +13,6 @@ import frc.robot.commands.Wrist.WristToPosition;
 import frc.robot.commands.Wrist.WristWithJoystick;
 import frc.robot.Constants.ElevatorConstants;
 
-
 import frc.robot.subsystems.*;
 
 import static frc.robot.Constants.WristConstants.*;
@@ -24,6 +23,10 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
+import frc.robot.subsystems.ExampleSubsystem;
+import frc.robot.subsystems.SwerveDrive;
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.Commands;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 
@@ -78,6 +81,17 @@ public class RobotContainer {
 
   private final CommandXboxController m_driverController;
   private final ExampleSubsystem m_exampleSubsystem;
+  
+  // The robot's subsystems and commands are defined here...
+
+  private SwerveDrive swerve;
+  private XboxController driver;
+
+  private JoystickButton fieldOrienatedButton;
+
+
+  private Command fieldOrienatedCommand;
+
 
   /** The container for the robot. Contains subsystems, OI devices, and commands. */
   public RobotContainer() {
@@ -130,7 +144,23 @@ public class RobotContainer {
     wrist.setDefaultCommand(wristToL2);
 
     // Configure the trigger bindings
+    
+
+    swerve = new SwerveDrive();
+    
+    driver = new XboxController(0);
+
+    fieldOrienatedButton = new JoystickButton(driver, XboxController.Button.kY.value);
+  
+
+    fieldOrienatedCommand = Commands.runOnce(() -> {swerve.toggleFieldOriented();}, swerve);
+
+
+
+    SmartDashboard.putData(swerve);
+
     configureBindings();
+
   }
 
 /**
@@ -166,8 +196,11 @@ private void configureBindings() {
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
   m_driverController.b().whileTrue(m_exampleSubsystem.exampleMethodCommand());
+
+  fieldOrienatedButton.whileTrue(fieldOrienatedCommand);
   }
 
+  
 /**
  * Use this to pass the autonomous command to the main {@link Robot} class.
  *
@@ -178,4 +211,3 @@ public Command getAutonomousCommand() {
   return Autos.exampleAuto(m_exampleSubsystem);
 }
 }
-

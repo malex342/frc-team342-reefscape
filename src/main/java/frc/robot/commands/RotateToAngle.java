@@ -6,6 +6,9 @@ package frc.robot.commands;
 
 import static frc.robot.Constants.DriveConstants.*;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
 import frc.robot.subsystems.SwerveDrive;
 import frc.robot.SwerveModule;
 
@@ -28,7 +31,7 @@ public class RotateToAngle extends Command {
 
 
   /** Creates a new RotateToAngle. */
-
+  public AHRS gyro;
   public RotateToAngle(double angle, SwerveDrive swerve) {
     // Use addRequirements() here to declare subsystem dependencies.
 
@@ -53,6 +56,7 @@ public class RotateToAngle extends Command {
   rotateController.enableContinuousInput(0, 360);
   start = 0;
   end = start + angle;
+  gyro = new AHRS(NavXComType.kUSB1);
   }
 
 
@@ -60,11 +64,11 @@ public class RotateToAngle extends Command {
   @Override
   public void execute() {
     rotateController.setSetpoint(end);
-    current = swerve.getGyro().getYaw();
+    current = gyro.getYaw();
     double rotationSpeed = rotateController.calculate(current, end);
     ChassisSpeeds radial = new ChassisSpeeds(0, 0, rotationSpeed);
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getModuleStates(), MAX_ROTATE_SPEED * 0.3);
-    swerve.drive(radial, MAX_DRIVE_SPEED); 
+    //SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getCurrentSwerveModulePositions(), MAX_ROTATE_SPEED * 0.3);
+    swerve.drive(radial); 
   }
 
   // Called once the command ends or is interrupted.

@@ -9,6 +9,9 @@ import frc.robot.subsystems.SwerveDrive;
 import frc.robot.Constants;
 import static frc.robot.Constants.DriveConstants.*;
 
+import com.studica.frc.AHRS;
+import com.studica.frc.AHRS.NavXComType;
+
 public class AutoAim extends Command{
   private SwerveDrive swerve;
   private PIDController rotateController;
@@ -19,6 +22,7 @@ public class AutoAim extends Command{
   private double tx;
   private double current;
 
+  public AHRS gyro;
 
   public AutoAim(double tx, SwerveDrive swerve){
     this.tx = tx;
@@ -42,17 +46,18 @@ public class AutoAim extends Command{
     rotateController.enableContinuousInput(0, 360);
     start = 0;
     end = start + tx;
+    gyro = new AHRS(NavXComType.kUSB1);
    }
 
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
     rotateController.setSetpoint(end);
-    current = swerve.getGyro().getYaw(); //gets what the current angle is?
+    current = gyro.getYaw(); //gets what the current angle is?
     double rotationSpeed = rotateController.calculate(current, end);
     ChassisSpeeds radial = new ChassisSpeeds(0, 0, rotationSpeed);
-    SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getModuleStates(), MAX_ROTATE_SPEED * 0.3);
-    swerve.drive(radial, MAX_DRIVE_SPEED); //make robot go zoom
+    //SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getCurrentSwerveModulePositions(), MAX_ROTATE_SPEED * 0.3);
+    swerve.drive(radial); //make robot go zoom
    }
 
    // Called once the command ends or is interrupted.

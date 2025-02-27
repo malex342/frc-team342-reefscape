@@ -4,8 +4,8 @@
 
 package frc.robot;
 
-import edu.wpi.first.math.geometry.Translation2d;
-import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
+import org.opencv.core.Mat;
+
 import edu.wpi.first.math.util.Units;
 
 /**
@@ -57,10 +57,6 @@ public final class Constants {
     public static final double DEFAULT_CURRENT = 30;
   }
   
-  public static class OperatorConstants {
-    public static final int kDriverControllerPort = 0;
-  }
-
   public static class ElevatorConstants {
     //placeholder values, change as soon as possible
 
@@ -78,59 +74,72 @@ public final class Constants {
     public static final int L4_HEIGHT = 0;
     public static final int PROCESSOR_HEIGHT = 0;
   }
-  public static class LimelightConstants {
-    //limelight field distance constants
-    public static final double LIMELIGHT_HEIGHT_TO_REEF = 0;
-    public static final double LIMELIGHT_HEIGHT_TO_PROCESSOR = 0;
-    public static final double LIMELIGHT_HEIGHT_TO_BARGE = 0;
-    public static final double LIMELIGHT_HEIGHT_TO_CORAL_STATION = 0;
+ 
+  /* FINAL NEEDS TO BE ADDED TO ALL OF THESE WHEN ACTAULLY VALUES ARE FOUND */
+  
+public static class DriveConstants {
 
-    //limelight field distance constants
-    public static final double LIMELIGHT_DISTANCE_TO_REEF = 0;
-    public static final double LIMELIGHT_DISTANCE_TO_PROCESSOR = 0;
-    public static final double LIMELIGHT_DISTANCE_TO_BARGE = 0;
-    public static final double LIMELIGHT_DISTANCE_TO_CORAL_STATION = 0;
+  public static final double DRIVE_GEAR_RATIO = 6.75;
+  public static final double ROTATE_GEAR_RATIO = 12.8;
 
-    //limelight name constants
-    public static final String LIMELIGHT_NAME = "limelight";
-  }
-
-  public static class DriveConstants {
+  public static final double WHEEL_DIAMETER = Units.inchesToMeters(4);
+  public static final double WHEEL_CIRCUMFERENCE = 2 * Math.PI;
 
   // Drive Motor IDs
-  public static int FRONT_LEFT_DRIVE_ID;
-  public static int FRONT_RIGHT_DRIVE_ID;
-  public static int BACK_LEFT_DRIVE_ID;
-  public static int BACK_RIGHT_DRIVE_ID;
+  public static final int FRONT_LEFT_DRIVE_ID = 1;
+  public static final int FRONT_RIGHT_DRIVE_ID = 2;
+  public static final int BACK_LEFT_DRIVE_ID = 4;
+  public static final int BACK_RIGHT_DRIVE_ID = 3;
 
   // Rotate Motor IDs
-  public static int FRONT_LEFT_ROTATE_ID;
-  public static int FRONT_RIGHT_ROTATE_ID;
-  public static int BACK_LEFT_ROTATE_ID;
-  public static int BACK_RIGHT_ROTATE_ID;
+  public static final int FRONT_LEFT_ROTATE_ID = 5;
+  public static final int FRONT_RIGHT_ROTATE_ID = 6;
+  public static final int BACK_LEFT_ROTATE_ID = 8;
+  public static final int BACK_RIGHT_ROTATE_ID = 7;
+
+  //Encoder Ports
+
+  public static final int FL_ENCODER_PORT = 1;
+  public static final int FR_ENCODER_PORT = 2;
+  public static final int BL_ENCODER_PORT = 0;
+  public static final int BR_ENCODER_PORT = 3;
+
 
   // Drive PID Values 
-  public static double DRIVE_P_VALUE;
-  public static double DRIVE_I_VALUE;
-  public static double DRIVE_D_VALUE;
-  public static double DRIVE_FF_VALUE;
-
+  public static final double DRIVE_P_VALUE = 0.1;
+  public static final double DRIVE_I_VALUE = 0.0;
+  public static final double DRIVE_D_VALUE = 0.7;
+  public static final double DRIVE_FF_VALUE = 0.9;
+  
   // Rotate PID Values
-  public static double ROTATE_P_VALUE;
-  public static double ROTATE_I_VALUE;
-  public static double ROTATE_D_VALUE;
+  public static final double ROTATE_P_VALUE = 0.25;
+  public static final double ROTATE_I_VALUE = 0.0;
+  public static final double ROTATE_D_VALUE = 0.3; 
   public static double ROTATE_FF_VALUE;
 
+  // Offsets
+  public static final double FRONT_LEFT_OFFSET = 0.81;
+  public static final double FRONT_RIGHT_OFFSET= 0.28;
+  public static final double BACK_LEFT_OFFSET = 2.33;
+  public static final double BACK_RIGHT_OFFSET = 5.97;
+
   // Factors
-  public static double DRIVE_POSITION_CONVERSION;
-  public static double DRIVE_VELOCITY_CONVERSION;
+  public static final double DRIVE_POSITION_CONVERSION = ((Math.PI * WHEEL_DIAMETER) / DRIVE_GEAR_RATIO);
+  public static final double DRIVE_VELOCITY_CONVERSION = DRIVE_POSITION_CONVERSION / 60;
 
-  public static double ROTATE_POSITION_CONVERSION;
-  public static double ROTATE_VELOCITY_CONVERSION;
+  public static final double ROTATE_POSITION_CONVERSION = (Math.PI * 2) / ROTATE_GEAR_RATIO;
+  public static final double ROTATE_VELOCITY_CONVERSION = ROTATE_POSITION_CONVERSION / 60;
 
-  public static final double MAX_DRIVE_SPEED = Units.feetToMeters(15.1);
+  // Speeds
+  public static double MAX_DRIVE_SPEED = Units.feetToMeters(15.1);
+  public static double SLOW_DRIVE_SPEED = Units.feetToMeters(5);
 
-  public static final double MAX_ROTATE_SPEED = 4 * Math.PI;
+  public static double MAX_ROTATE_SPEED = 4 * Math.PI;
 
-  }
+}
+
+public static class OperatorConstants {
+  public static final int kDriverControllerPort = 0;
+}
+
 }
