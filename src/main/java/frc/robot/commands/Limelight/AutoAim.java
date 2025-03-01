@@ -57,6 +57,7 @@ public class AutoAim extends Command{
       }else{
         tx = LimelightHelpers.getTX("limey");
     }
+    System.out.println("tv="+tv+" tx="+tx);
     
     end = start + tx;
     gyro = new AHRS(NavXComType.kUSB1);
@@ -71,6 +72,7 @@ public class AutoAim extends Command{
     ChassisSpeeds radial = new ChassisSpeeds(0, 0, rotationSpeed);
     //SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getCurrentSwerveModulePositions(), MAX_ROTATE_SPEED * 0.3);
     swerve.drive(radial); //make robot go zoom
+    System.out.println("rotationspeed="+rotationSpeed);
    }
 
    // Called once the command ends or is interrupted.
@@ -82,6 +84,7 @@ public class AutoAim extends Command{
 // Returns true when the command should end.
   @Override
   public boolean isFinished() {
+    System.out.println("im done! :3");
     return rotateController.atSetpoint();
   }
 }
