@@ -22,6 +22,7 @@ public class AutoAim extends Command{
   private double end;
 
   private double tx;
+  private boolean tv;
   private double current;
 
   public AHRS gyro;
@@ -30,6 +31,7 @@ public class AutoAim extends Command{
     this.limelight = limelight;
     this.swerve = swerve;
     addRequirements(swerve);
+    addRequirements(limelight);
 
     rotateController = new PIDController(
     //placeholder pid values, tune these pls mischa :praying hands emoji:
@@ -47,6 +49,15 @@ public class AutoAim extends Command{
    public void initialize() {
     rotateController.enableContinuousInput(0, 360);
     start = 0;
+    tv = LimelightHelpers.getTV("limey");
+
+    //check for target
+    if (!tv){
+        tx = 0;
+      }else{
+        tx = LimelightHelpers.getTX("limey");
+    }
+    
     end = start + tx;
     gyro = new AHRS(NavXComType.kUSB1);
    }

@@ -62,12 +62,10 @@ public class RobotContainer {
     // Replace with CommandPS4Controller or CommandJoystick if needed
     m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
     wrist = new Wrist();
-    boolean tv = LimelightHelpers.getTV("");
-  if (!tv){
-    tx = 0;
-  }else{
-    tx = LimelightHelpers.getTX("");
-  }
+    limelight = new Limelight("limey");
+    boolean tv = LimelightHelpers.getTV("limey");
+
+  
 
 
     SmartDashboard.putData(wrist);
@@ -82,7 +80,7 @@ public class RobotContainer {
     
 
     swerve = new SwerveDrive();
-    limelight = new Limelight("");
+    limelight = new Limelight("limey");
     
     driver = new XboxController(0);
 
