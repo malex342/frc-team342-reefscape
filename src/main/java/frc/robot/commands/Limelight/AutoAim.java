@@ -35,9 +35,9 @@ public class AutoAim extends Command{
 
     rotateController = new PIDController(
     //placeholder pid values, tune these pls mischa :praying hands emoji:
-      .01, 
-      .01, 
-      .01
+      ROTATE_P_VALUE, 
+      ROTATE_I_VALUE, 
+      ROTATE_D_VALUE
     );
 
     rotateController.reset();

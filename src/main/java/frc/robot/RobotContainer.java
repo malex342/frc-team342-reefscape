@@ -47,7 +47,7 @@ public class RobotContainer {
   private SwerveDrive swerve;
   private Limelight limelight;
   private XboxController driver;
-  private double tx;
+
   private JoystickButton fieldOrienatedButton;
 
 
@@ -62,8 +62,8 @@ public class RobotContainer {
     // Replace with CommandPS4Controller or CommandJoystick if needed
     m_driverController = new CommandXboxController(OperatorConstants.kDriverControllerPort);
     wrist = new Wrist();
-    limelight = new Limelight("limey");
-    boolean tv = LimelightHelpers.getTV("limey");
+    //limelight = new Limelight("limey");
+    //boolean tv = LimelightHelpers.getTV("limey");
 
   
 
@@ -115,7 +115,7 @@ private void configureBindings() {
 
   // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
   // cancelling on release.
-  m_driverController.rightBumper().whileTrue(new AutoAim(limelight, swerve));
+  m_driverController.rightBumper().onTrue(new AutoAim(limelight, swerve));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
