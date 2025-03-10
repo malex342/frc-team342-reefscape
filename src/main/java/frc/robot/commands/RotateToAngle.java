@@ -41,7 +41,7 @@ public class RotateToAngle extends Command {
 
     rotateController = new PIDController(
      
-      0.000,
+      0.035,
       0.000, 
       0.000
     );
@@ -64,7 +64,7 @@ public class RotateToAngle extends Command {
   @Override
   public void execute() {
     rotateController.setSetpoint(end);
-    current = gyro.getYaw();
+    current = gyro.getAngle();
     double rotationSpeed = rotateController.calculate(current, end);
     ChassisSpeeds radial = new ChassisSpeeds(0, 0, rotationSpeed);
     //SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getCurrentSwerveModulePositions(), MAX_ROTATE_SPEED * 0.3);

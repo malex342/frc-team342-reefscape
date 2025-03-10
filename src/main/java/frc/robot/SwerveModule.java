@@ -72,7 +72,7 @@ public class SwerveModule {
         driveConfig = new SparkMaxConfig();
         rotateConfig = new SparkMaxConfig();
 
-            /** not sure weather its supposed to be brake or coast lol so come back to this lol 
+            /** not sure whether its supposed to be brake or coast lol so come back to this lol 
              * And make sure to update the numver withing the stalllimit lol*/  
 
         driveConfig

@@ -34,7 +34,6 @@ public class AutoAim extends Command{
     addRequirements(limelight);
 
     rotateController = new PIDController(
-    //placeholder pid values, tune these pls mischa :praying hands emoji:
       ROTATE_P_VALUE, 
       ROTATE_I_VALUE, 
       ROTATE_D_VALUE
@@ -54,24 +53,29 @@ public class AutoAim extends Command{
     //check for target
     if (!tv){
         tx = 0;
+        System.out.println("Who turned out the lights?");
       }else{
         tx = LimelightHelpers.getTX("limey");
+        System.out.println("I be seeing the April Tag");
     }
     System.out.println("tv="+tv+" tx="+tx);
     
     end = start + tx;
-    gyro = new AHRS(NavXComType.kUSB1);
+    gyro = swerve.getGyro();
    }
 
    // Called every time the scheduler runs while the command is scheduled.
    @Override
    public void execute() {
     rotateController.setSetpoint(end);
-    current = gyro.getYaw(); //gets what the current angle is?
+    System.out.println("setpoint set X3");
+    current = gyro.getAngle();
+    System.out.println("angle got got");
+    System.out.println("current: "+current); //gets what the current angle is?
     double rotationSpeed = rotateController.calculate(current, end);
     ChassisSpeeds radial = new ChassisSpeeds(0, 0, rotationSpeed);
-    //SwerveDriveKinematics.desaturateWheelSpeeds(swerve.getCurrentSwerveModulePositions(), MAX_ROTATE_SPEED * 0.3);
     swerve.drive(radial); //make robot go zoom
+    System.out.println("we think we drove somewhere!! XP");
     System.out.println("rotationspeed="+rotationSpeed);
    }
 
@@ -79,6 +83,7 @@ public class AutoAim extends Command{
    @Override
    public void end(boolean interrupted) {
     swerve.stopModules();
+    System.out.println("modules stopped! X3");
    }
 
 // Returns true when the command should end.
